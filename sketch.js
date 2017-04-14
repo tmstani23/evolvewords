@@ -35,13 +35,26 @@ var totalPopulation = 150;      // Total Population
 var population;             // Array to hold the current population
 var matingPool;    // ArrayList which we will use for our "mating pool"
 var target;                // Target phrase
-
-var display = "";
+var stats;
+var display;
+var bestPhrase;     //html paragraph that holds the result
+var finishedEvolve = false;   
+var answer;   //final result phrase
 
 function setup() {
+  //create html paragraph with the string: "STARTING"
   display = createP("STARTING");
+  //create css style class "results""
   display.class("results");
-  display.position(10,10);
+  display.position(600, 10);
+
+  bestPhrase = createP("Best Phrase: ")
+  bestPhrase.class("best")
+  
+  stats = createP("Stats");
+  stats.class("stats");
+
+  
 
   //createCanvas(800, 200);
   target = 'to be or not to be';
@@ -85,11 +98,24 @@ function draw() {
   }
   
   var everything = "";
-  for (var i = 0; i < population.length; i++) {
+  var displayLimit = min(population.length, 50);
+  for (var i = 0; i < displayLimit; i++) {
     if (i % 4 == 0) everything += "<br>";
     everything += population[i].getPhrase() + "    ";
-  }
-  textFont("Courier");
-  display.html(everything);
-  //noLoop();
+}
+  
+  display.html("All Phrases:<br>" + everything);
+   //noLoop();
+  displayStats();
+}
+function displayStats() {
+  var stats_text = "Total Population: " + totalPopulation + "<br>";
+  stats_text += "Target Phrase: " + target + "<br>";
+  
+  //bestPhrase.html(answer)
+  
+  stats.html(stats_text)
+  
+  
+  
 }

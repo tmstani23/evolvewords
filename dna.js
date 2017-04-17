@@ -17,25 +17,31 @@
 function newChar() {
   //generate random characters to populate the genes array
   var c = floor(random(64,122));
-  if (c === 64) c = 32;
-  //convert numbers to a string:
+  if (c === 63) c = 32;
+  if (c === 64) c = 46;
+  //convert numbers to a string of alphabetic letters:
   return String.fromCharCode(c);
+  
 }
 
 // Constructor (makes a random DNA)
-function DNA(num) {
+function DNA(glength) {
   // The genetic sequence
   this.genes = [];
   this.fitness = 0;
-  for (var i = 0; i < num; i++) {
+  for (var i = 0; i < glength; i++) {
+    //iterate through the genes array
+    //append random characters from the new char function
     this.genes[i] = newChar();  // Pick from range of chars
     }
 
   // Converts character array to a String
   this.getPhrase = function() {
+    //join all the characters from the genes array into a string
+      //remove commas between characters
     return this.genes.join("");
+    
   }
-
   // Fitness function (returns floating point % of "correct" characters)
   this.calcFitness = function(target) {
      var score = 0;
@@ -47,6 +53,7 @@ function DNA(num) {
           score++;
         }
      }
+     //produce a fitness score for the whole "gene"
      this.fitness = score / target.length;
   }
 
@@ -67,8 +74,12 @@ function DNA(num) {
 
   // Based on a mutation probability, picks a new random character
   this.mutate = function(mutationRate) {
+    //iterate through each character in the this.genes array
     for (var i = 0; i < this.genes.length; i++) {
+      //generate random # between 0 and 1
       if (random(1) < mutationRate) {
+        //if less than mutation rate 
+        //substitute new character at this.genes(i)
         this.genes[i] = newChar();
       }
     }

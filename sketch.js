@@ -57,11 +57,13 @@ function setup() {
   
 
   //createCanvas(800, 200);
-  target = 'to be or not to be';
-
+  target = 'To be or not to be.';
+  //create new empty population array
   population = [];
-
+  // iterate through the population
   for (var i = 0; i < totalPopulation; i++) {
+    //create a new dna element for each element in the population
+    //each dna element is itself an array of "genes" - a character set of target length
     population[i] = new DNA(target.length);
   }
 }
@@ -75,10 +77,17 @@ function draw() {
   }
 
   var matingPool = [];  // ArrayList which we will use for our "mating pool"
-
+  //begin iteration loop until popluation length is reached
   for (var i = 0; i < population.length; i++) {
+    //create variable that holds fitness score of each element in the population
     var nnnn = floor(population[i].fitness * 100);  // Arbitrary multiplier, we can also use monte carlo method
+    //iterate through each score
     for (var j = 0; j <nnnn; j++) {              // and pick two random numbers
+      print(j);
+      print(nnnn);
+      print(population[i])
+      print("iterate");
+      //add the score to the mating pool
       matingPool.push(population[i]);
     }
   }
@@ -100,8 +109,8 @@ function draw() {
   var everything = "";
   var displayLimit = min(population.length, 50);
   for (var i = 0; i < displayLimit; i++) {
-    if (i % 4 == 0) everything += "<br>";
-    everything += population[i].getPhrase() + "    ";
+    if (i % 4 == 0);
+    everything += population[i].getPhrase() + "<br>";
 }
   
   display.html("All Phrases:<br>" + everything);

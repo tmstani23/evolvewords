@@ -55,6 +55,9 @@ function DNA(glength) {
      }
      //produce a fitness score for the whole "gene"
      this.fitness = score / target.length;
+     //square the fitness function to make it exponentially improve
+      //based on how many characters correct
+     this.fitness = pow(this.fitness, 2)
   }
 
   // Crossover

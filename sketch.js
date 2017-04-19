@@ -30,7 +30,7 @@
 
 
 var mutationRate = 0.01;    // Mutation rate
-var totalPopulation = 150;      // Total Population
+var totalPopulation = 200;      // Total Population
 var generations = 0;
 
 var population;             // Array to hold the current population
@@ -41,7 +41,7 @@ var stats;
 var display;
 var bestPhrase;     //html paragraph that holds the result
 var finishedEvolve = false;   
-var answer;   //final result phrase
+var answer = "";   //final result phrase
 
 function setup() {
   //create html paragraph with the string: "STARTING"
@@ -56,9 +56,6 @@ function setup() {
   stats = createP("Stats");
   stats.class("stats");
 
-  
-
-  //createCanvas(800, 200);
   target = 'To be or not to be.';
   //create new empty population array
   population = [];
@@ -70,12 +67,19 @@ function setup() {
   }
 }
 
+
 function draw() {
   //calculate fitness 
   //loop through the entire population:
   for (var i = 0; i < population.length; i++) {
     //call calcFitness function on each element of the population
     population[i].calcFitness(target);
+    var evaluatePhrase = population[i].getPhrase()
+    //print (evaluatePhrase);
+    if (evaluatePhrase == target) {
+      finishedEvolve = true;
+      answer = evaluatePhrase;
+    }
   }
 
   var matingPool = [];  // ArrayList which we will use for our "mating pool"
@@ -108,6 +112,12 @@ function draw() {
     
   }
   generations++;
+
+  //function evalPop() {
+    //iterate through the population
+    //
+  //}
+  
   var everything = "";
   //displayLimit = lowest # between pop length and 50
   var displayLimit = min(population.length, 50);
@@ -127,10 +137,13 @@ function displayStats() {
   var stats_text = "Total Population: " + totalPopulation + "<br>";
   stats_text += "Target Phrase: " + target + "<br>";
   stats_text += "Generations: " + generations + "<br>";
-  //bestPhrase.html(answer)
+  
+  var answer_text = "Best Phrase: " + "<br>" + answer + "<br>";
+  
+  bestPhrase.html(answer_text)
   
   stats.html(stats_text)
   
-  
+
   
 }

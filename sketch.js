@@ -36,12 +36,11 @@ var generations = 0;
 var population;             // Array to hold the current population
 var matingPool;    // ArrayList which we will use for our "mating pool"
 var target;                // Target phrase
-var stats;
 
-var display;
-var bestPhrase;     //html paragraph that holds the result
 var finishedEvolve = false;   
 var answer = "";   //final result phrase
+
+
 
 function setup() {
   //create html paragraph with the string: "STARTING"
@@ -50,15 +49,19 @@ function setup() {
   display.class("results");
   display.position(600, 10);
 
-  bestPhrase = createP("Best Phrase: ")
+  bestPhrase = createP("")
   bestPhrase.class("best")
   
   stats = createP("Stats");
   stats.class("stats");
 
-  target = 'To be or not to be.';
+  everything = "";
+
+  target = 'Evolution is brilliant indeed.';
   //create new empty population array
   population = [];
+  
+  
   // iterate through the population
   for (var i = 0; i < totalPopulation; i++) {
     //create a new dna element for each element in the population
@@ -69,14 +72,18 @@ function setup() {
 
 
 function draw() {
-  //calculate fitness 
+  //Calculate Fitness 
+  
   //loop through the entire population:
   for (var i = 0; i < population.length; i++) {
     //call calcFitness function on each element of the population
     population[i].calcFitness(target);
+    //store current gene element from the population in evaluatePhrase variable
+      //getPhrase() function removes spaces and converts to a string
     var evaluatePhrase = population[i].getPhrase()
-    //print (evaluatePhrase);
+    //if the current iteration of the gene = the target phrase
     if (evaluatePhrase == target) {
+      //end evolution and store the gene in the answer variable
       finishedEvolve = true;
       answer = evaluatePhrase;
     }
@@ -93,7 +100,9 @@ function draw() {
       matingPool.push(population[i]);
     }
   }
-  //Generate function that creates new generation
+  
+  //Generate function that creates a new generation
+  
   //refill the population with children from the mating pool array
   for (var i = 0; i < population.length; i++) {
     //pick 2 random #s between 0 and length of all elements in the mating pool
@@ -111,12 +120,8 @@ function draw() {
     population[i] = child;
     
   }
+  //add one to generation variable
   generations++;
-
-  //function evalPop() {
-    //iterate through the population
-    //
-  //}
   
   var everything = "";
   //displayLimit = lowest # between pop length and 50
@@ -127,23 +132,31 @@ function draw() {
     //getPhrase function strips all the commas and separators out
       //to make it more readable
     everything += population[i].getPhrase() + "<br>";
-}
+  }
+  //execute display html to update the current phrase "genes" on the screen
+    //this must remain inside the draw loop as it is constantly updated
+  display.html("Genes in pool: " + matingPool.length + "<br>" + "<br>" + "All Phrases:<br>" + everything + "<br>");
   
-  display.html("All Phrases:<br>" + everything);
-   //noLoop();
+  //call a final display function for the stats and other text html
   displayStats();
+  
+  if (finishedEvolve == true) {
+  noLoop();  
+  }
 }
+//function that displays different variables to the screen as text
 function displayStats() {
   var stats_text = "Total Population: " + totalPopulation + "<br>";
+  //here additional text information is added on to the stats_text variable
+    //which has the effect of appending the information rather than overwriting
   stats_text += "Target Phrase: " + target + "<br>";
   stats_text += "Generations: " + generations + "<br>";
-  
+  stats_text += "Mutation Rate: " + mutationRate*100 + "%" + "<br>";
+  //stats_text += 
   var answer_text = "Best Phrase: " + "<br>" + answer + "<br>";
+ 
   
+  //display the answer above the stats
   bestPhrase.html(answer_text)
-  
   stats.html(stats_text)
-  
-
-  
 }

@@ -31,11 +31,13 @@
 
 var mutationRate = 0.01;    // Mutation rate
 var totalPopulation = 150;      // Total Population
+var generations = 0;
 
 var population;             // Array to hold the current population
 var matingPool;    // ArrayList which we will use for our "mating pool"
 var target;                // Target phrase
 var stats;
+
 var display;
 var bestPhrase;     //html paragraph that holds the result
 var finishedEvolve = false;   
@@ -77,16 +79,12 @@ function draw() {
   }
 
   var matingPool = [];  // ArrayList which we will use for our "mating pool"
-  //begin iteration loop until popluation length is reached
+  //begin iteration loop until population length is reached
   for (var i = 0; i < population.length; i++) {
     //create variable that holds fitness score of each element in the population
     var nnnn = floor(population[i].fitness * 100);  // Arbitrary multiplier, we can also use monte carlo method
-    //iterate through each score
+    //iterate j until it reaches score value
     for (var j = 0; j <nnnn; j++) {              // and pick two random numbers
-      print(j);
-      print(nnnn);
-      print(population[i])
-      print("iterate");
       //add the score to the mating pool
       matingPool.push(population[i]);
     }
@@ -94,8 +92,11 @@ function draw() {
   //Generate function that creates new generation
   //refill the population with children from the mating pool array
   for (var i = 0; i < population.length; i++) {
+    //pick 2 random #s between 0 and length of all elements in the mating pool
+    //assign it to var a and b
     var a = floor(random(matingPool.length));
     var b = floor(random(matingPool.length));
+    //assign gene at location a in the mating pool to new partnerA
     var partnerA = matingPool[a];
     var partnerB = matingPool[b];
     //apply crossover function to create child
@@ -104,12 +105,17 @@ function draw() {
     child.mutate(mutationRate);
     //add the child to the population
     population[i] = child;
+    
   }
-  
+  generations++;
   var everything = "";
+  //displayLimit = lowest # between pop length and 50
   var displayLimit = min(population.length, 50);
+  //iterate until displayLimit is reached
   for (var i = 0; i < displayLimit; i++) {
-    if (i % 4 == 0);
+    //add the phrase with a line break to everything variable
+    //getPhrase function strips all the commas and separators out
+      //to make it more readable
     everything += population[i].getPhrase() + "<br>";
 }
   
@@ -120,7 +126,7 @@ function draw() {
 function displayStats() {
   var stats_text = "Total Population: " + totalPopulation + "<br>";
   stats_text += "Target Phrase: " + target + "<br>";
-  
+  stats_text += "Generations: " + generations + "<br>";
   //bestPhrase.html(answer)
   
   stats.html(stats_text)

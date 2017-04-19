@@ -16,7 +16,7 @@
 
 function newChar() {
   //generate random characters to populate the genes array
-  var c = floor(random(64,122));
+  var c = floor(random(63,122));
   if (c === 63) c = 32;
   if (c === 64) c = 46;
   //convert numbers to a string of alphabetic letters:

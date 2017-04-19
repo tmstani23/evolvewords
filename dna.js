@@ -16,7 +16,7 @@
 
 function newChar() {
   //generate random characters to populate the genes array
-  var c = floor(random(64,122));
+  var c = floor(random(63,122));
   if (c === 63) c = 32;
   if (c === 64) c = 46;
   //convert numbers to a string of alphabetic letters:
@@ -55,6 +55,9 @@ function DNA(glength) {
      }
      //produce a fitness score for the whole "gene"
      this.fitness = score / target.length;
+     //square the fitness function to make it exponentially improve
+      //based on how many characters correct
+     this.fitness = pow(this.fitness, 2)
   }
 
   // Crossover

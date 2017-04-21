@@ -49,15 +49,19 @@ function setup() {
   display.class("results");
   display.position(600, 10);
 
-  bestPhrase = createP("")
-  bestPhrase.class("best")
+  genePool = createP("");
+  genePool.class("geneP");
+  genePool.position(10, 410);
+
+  bestPhrase = createP("");
+  bestPhrase.class("best");
   
   stats = createP("Stats");
   stats.class("stats");
 
   everything = "";
 
-  target = 'Evolution is brilliant indeed.';
+  target = 'Natural causes explain the wonders of nature';
   //create new empty population array
   population = [];
   
@@ -135,8 +139,8 @@ function draw() {
   }
   //execute display html to update the current phrase "genes" on the screen
     //this must remain inside the draw loop as it is constantly updated
-  display.html("Genes in pool: " + matingPool.length + "<br>" + "<br>" + "All Phrases:<br>" + everything + "<br>");
-  
+  display.html("All Phrases:<br>" + everything + "<br>");
+  genePool.html("Genes in pool: " + matingPool.length + "<br>" + "Created by Tim Stanislav - Indoorkin Productions");
   //call a final display function for the stats and other text html
   displayStats();
   
@@ -149,10 +153,9 @@ function displayStats() {
   var stats_text = "Total Population: " + totalPopulation + "<br>";
   //here additional text information is added on to the stats_text variable
     //which has the effect of appending the information rather than overwriting
-  stats_text += "Target Phrase: " + target + "<br>";
+  stats_text += "Target Phrase: " + "<br>" + target + "<br>";
   stats_text += "Generations: " + generations + "<br>";
   stats_text += "Mutation Rate: " + mutationRate*100 + "%" + "<br>";
-  //stats_text += 
   var answer_text = "Best Phrase: " + "<br>" + answer + "<br>";
  
   

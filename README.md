@@ -3,7 +3,7 @@ Genetic Algorithm:
 Evolve a word phrase in your browser.
 
 To run:
-1. Click the clone or download dropdown
+1. Click the clone or download dropdown in github
 2. Download as zip
 3. Extract onto your desktop
 4. Run the index.html file

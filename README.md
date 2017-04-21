@@ -11,7 +11,7 @@ To run:
 
 Screenshot:
 
-!https://github.com/tmstani23/evolvewords/blob/master/scrn1.jpg
+!(https://github.com/tmstani23/evolvewords/blob/master/scrn1.jpg)
 
 
  
